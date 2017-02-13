@@ -1,0 +1,21 @@
+parameters:
+    app.name: Campus
+    app.logo: logo.png
+    app.version: 0.5
+
+#    OPTIONS
+
+#       black
+#       black-light
+#       blue
+#       blue-light
+#       green
+#       green-light
+#       purple
+#       purple-light
+#       red
+#       red-light
+#       yellow
+#       yellow-light
+
+    app.theme: blue

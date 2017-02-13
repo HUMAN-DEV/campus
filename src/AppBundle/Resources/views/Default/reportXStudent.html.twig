@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Reporte por estudiante</title>
+	<link href="{{ asset('theme/css/bootstrap.css') }}" rel="stylesheet">
+	<link href="{{ asset('custom/themes/default.css') }}" rel="stylesheet">
+	<link href="{{ asset('custom/themes/default.date.css') }}" rel="stylesheet">
+	<link href="{{ asset('custom/themes/default.time.css') }}" rel="stylesheet">
+
+	<style type="text/css">
+
+		@media print {
+			.np {
+				display: none;
+			}
+
+			.sf-toolbar {
+				display: none;
+			}
+		}
+
+		.tbnota {
+			width: 100%;
+			font-family: verdana, arial, sans-serif;
+			font-size: 9px;
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+
+		.graphNT {
+			padding-left: 5px;
+			padding-right: 5px;
+		}
+
+		.tblg {
+			font-size: 9px;
+		}
+
+		.lglt {
+			width: 12px;
+			font-weight: bold
+		}
+
+		.mtr {
+			font-size: 11px;
+			font-weight: bold;
+			background-color: #909090;
+			border-bottom: black
+		}
+
+		.negra {
+			font-weight: bold;
+		}
+
+		.centro {
+			text-align: center
+		}
+
+		.tbhs {
+			font-size: 9px;
+			border-collapse: collapse;
+		}
+
+		.hsnt {
+			width: 24px;
+			text-align: center;
+			font-weight: bold
+		}
+
+		.hsfl {
+			width: 14px;
+			text-align: center;
+		}
+
+		.hscm {
+			width: 42px;
+			text-align: center;
+			font-weight: bold
+		}
+
+		.bajo {
+			color: red;
+			background-color: rgba(255, 7, 0, 0.51);
+		!important;
+		}
+
+		.aceptable {
+			color: green;
+			background-color: rgba(1, 255, 14, 0.51);
+		!important;
+		}
+
+		.borde {
+			border: 1px solid black;
+		}
+
+		.sep {
+			border-top: 1px solid black;
+		}
+
+		.sepd {
+			border-right: 1px solid black;
+		}
+
+		.iniNotaUno {
+			page-break-inside: avoid;
+		}
+
+
+	</style>
+
+</head>
+
+<body>
+<div class="container">
+	<div class="panel panel-info np">
+		<div class="panel-info panel-heading  ">
+			Reporte por estudiante <a class=" pull-right" href="{{ path('homepage') }}"> Inicio</a>
+		</div>
+		<div class="panel-body ">
+			<div style="text-align: center">
+
+				<div class="box-body">
+					<fieldset>
+						<legend>Datos del estudiante</legend>
+						<div class="form-inline">
+							<div class="form-group">
+								<label for="id_estudiante">Codigo del Estudiante: </label>
+								<input type="number" class="form-control" id="id_estudiante" placeholder="1234">
+							</div>
+							<div class="form-group">
+								<label for="doc_estudiante">Documento</label>
+								<input type="number" class="form-control" id="doc_estudiante"
+								       placeholder="1233545656">
+							</div>
+							<h3>Rango de fechas</h3>
+							<div class="form-group">
+								<label for="desde">Desde</label>
+								<input type="date" class="form-control datepicker" id="desde"
+								       placeholder="2017-01-01">
+							</div>
+							<div class="form-group">
+								<label for="hasta">Hasta</label>
+								<input type="date" class="form-control datepicker" id="hasta"
+								       placeholder="2017-01-31" value="">
+							</div>
+							<br>
+							<br>
+							<br>
+							<a href="#" id="consultar_x_estudiante" class="btn btn-primary">Consultar</a>
+						</div>
+					</fieldset>
+					<div id="resultado" style="display: none">
+						<div id="contenido"></div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		<br>
+		<hr>
+		<br>
+	</div>
+
+
+	<script src="{{ asset('theme/js/jquery.min.js') }}"></script>
+	<script src="{{ asset('theme/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('theme/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('custom/picker.js') }}"></script>
+	<script src="{{ asset('custom/picker.date.js') }}"></script>
+	<script src="{{ asset('custom/picker.time.js') }}"></script>
+	<script src="{{ asset('custom/translations/es_ES.js') }}"></script>
+	<script type="text/javascript">
+
+
+        $('#consultar_x_estudiante').on('click', '', '', function () {
+            var code = $("#id_estudiante").val();
+            var student = $("#doc_estudiante").val();
+            var init = $("#desde").val();
+            var end = $("#hasta").val();
+
+            var valid = true;
+            if (!code || code == '') {
+                valid = false
+            } else {
+                if (!student || student == '') {
+                    valid = false;
+                }
+            }
+            if (valid) {
+                $.ajax({
+                    data: {id: code, documento: student, desde: init, hasta: end},
+                    //Cambiar a type: POST si necesario
+                    type: "POST",
+                    // Formato de datos que se espera en la respuesta
+                    dataType: "JSON",
+                    url: '../consulta.php',
+
+                }).done(function (ret) {
+                    if (ret.success) {
+                        $('#resultado').show('slow');
+                        var output = "";
+                        output += "<h3>" + ret.message + "</h3>";
+                        output += "<br>";
+                        output += "<table class='table table-responsive table-bordered table-hover table-striped table-condensed'>";
+                        output += "<thead>";
+                        output += "<tr>";
+                        output += "<th style='text-align: center; background-color: #00a7d0'>Asignatura</th><th style='text-align: center;background-color: #00a7d0'    '>Promedio </th>";
+                        output += "</tr>";
+                        output += "</thead>";
+                        output += "<body";
+
+                        $.each(ret.data, function (key, value) {
+                            output += "<tr>";
+                            output += "<td>" + key + "</td><td>" + value.promedio + '</td>';
+                            output += "</tr>";
+                        });
+                        output += "</tbody>";
+                        output += "</table>";
+
+                        $("#contenido").html(output);
+                        $("#estudiante").text(ret.estudiante);
+
+                        var reporte =
+                            "<table border=0 align=center style='width:100%;font-family:verdana,arial,sans-serif;font-size:12px;font-weight:bold'>" +
+                            " <tr>" +
+                            " <td rowspan=4 valign=center align=center style='width:1px;padding:4px'>" +
+                            " <img height=96px src='{{ asset('colLogo.png') }}'" +
+                            " </td>" +
+                            " <td align=center>" +
+                            " <span style='font-size:16px;font-weight:bold'><span>{{ colName }}</span></span></td>" +
+                            "</tr>" +
+                            " <tr>" +
+                            " <td align=center><span>{{ colSubtitle }}</span>" +
+                            "<br>" +
+                            " <span style='font-size:8px'><span>{{ colDane }}</span>" +
+                            "<br>" +
+                            " <span> {{ colDir }}</span>" + "" +
+                            " <span>{{ colTel }} - {{ colFax }}</span>" + "" +
+                            " </span>" +
+                            " </td>" +
+                            " </tr>" +
+                            " <tr>" +
+                            " <td align=center>" +
+                            " <span style='font-size:14px;'>" +
+                            " <span>Informe de Evaluaci&oacute;n  - A&ntilde;o: {{ 'now'|date('Y') }}</span>" + "" +
+                            " </span>" +
+                            " </td>" +
+                            " </tr>" +
+                            " <tr>" +
+                            " <td align=center>" +
+                            " <span style='font-size:12.5px;font-weight:bold'>" +
+                            " <span id='estudiante'></span>" +
+                            " </span>" +
+                            " </td>" +
+                            " </tr>" +
+                            " </table>";
+                        reporte +=
+                            "<table width='100%' border='0'>" +
+                            "   <tbody>" +
+                            "       <tr>" +
+                            "           <td>" +
+                            "               <table class='tbnota'>" +
+                            "                   <tbody>" +
+                            "                       <tr>" +
+                            "                           <td colspan='6'>" +
+                            "                               <table style='width:100%'>" +
+                            "                                   <tbody>" +
+                            "                                       <tr>" +
+                            "                                           <td></td>" +
+                            "                                           <td style='font-size:9px' class='' align='right'>" +
+                            "                                               <span ><b>Grado:</b>" + ret.grupo + "</span>" +
+                            "                                               <span ><b>Sede:</b>" + ret.sede + "</span>" +
+                            "                                               <span ><b>Cod:</b>" + ret.id + "</span>" +
+                            "                                           </td>" +
+                            "                                       </tr>" +
+                            "                                   </tbody>" +
+                            "                               </table>" +
+                            "                           </td>" +
+                            "                       </tr>" +
+                            "                   </tbody>";
+
+                        $.each(ret.data, function (asignaturas, param) {
+
+                            var p1 = 0, i1 = 0, p2 = 0, i2 = 0, p3 = 0, i3 = 0, p4 = 0, i4 = 0;
+                            var cp1 = 'bajo', cp2 = 'bajo', cp3 = 'bajo', cp4 = 'bajo', cpr = 'bajo';
+                            var promAsignatura = 0;
+                            var fallas = 0;
+                            var count = 0;
+
+                            var v = param.periodos;
+
+                            if (typeof (v.cuarto) == "object") {
+                                p4 = v.cuarto.promedio;
+                                i4 = v.cuarto.inasistencia;
+                            }
+
+                            if (typeof (v.tercero) == "object") {
+                                p3 = v.tercero.promedio;
+                                i3 = v.tercero.inasistencia;
+                            }
+                            if (typeof (v.segundo) == "object") {
+                                p2 = v.segundo.promedio;
+                                i2 = v.segundo.inasistencia;
+                            }
+                            if (typeof (v.primero) == "object") {
+                                p1 = v.primero.promedio;
+                                i1 = v.primero.inasistencia;
+                            }
+
+                            promAsignatura = parseInt(p1) + parseInt(p2) + parseInt(p3) + parseInt(p4);
+
+
+                            if (promAsignatura > 0) {
+                                promAsignatura = parseInt(promAsignatura) / 4;
+                            }
+
+                            if (p1 > 2.9)
+                                cp1 = 'aceptable';
+
+                            if (p2 > 2.9)
+                                cp2 = 'aceptable';
+
+                            if (p3 > 2.9)
+                                cp3 = 'aceptable';
+
+                            if (p4 > 2.9)
+                                cp4 = 'aceptable';
+
+                            fallas = parseInt(i1) + parseInt(i2) + parseInt(i3) + parseInt(i4);
+
+                            reporte +=
+                                "               <tbody>" +
+                                "                   <tr>" +
+                                "                       <td style = 'width:45%' class='lbmtr sepd sep centro negra'>MATERIA</td>" +
+                                "                       <td style='width:5%' class='sepd sep centro negra'>IH</td>" +
+                                "                       <td style='width:34%' class='sep' align='right'>" +
+                                "                           <table class='tbhs undecimoa' style='width:100%;'>" +
+                                "                               <tbody>" +
+                                "                                   <tr>" +
+                                "                                       <td colspan='9' class='sepd negra centro' align='center'>HISTORICO</td>" +
+                                "                                   </tr>" +
+                                "                                   <tr>" +
+                                "                                       <td class='hsnt borde'>N</td>" +
+                                "                                       <td class='hsfl borde'>F</td>" +
+                                "                                       <td class='hsnt borde'>N</td>" +
+                                "                                       <td class='hsfl borde'>F</td>" +
+                                "                                       <td class='hsnt borde'>N</td>" +
+                                "                                       <td class='hsfl borde'>F</td>" +
+                                "                                       <td class='hsnt borde'>N</td>" +
+                                "                                       <td class='hsfl borde'>F</td>" +
+                                "                                       <td class='hscm hsprom borde negra'>PROM</td>" +
+                                "                                   </tr>" +
+                                "                               </tbody>" +
+                                "                           </table>" +
+                                "                       </td>" +
+                                "                       <td style='width:16%' colspan='3' class='sep'>" +
+                                "                           <table class='tbhs' width='100%'>" +
+                                "                               <tbody>" +
+                                "                                   <tr>" +
+                                "                                       <td colspan='2' class='negra centro' align='center'>NOTA PERIODO</td>" +
+                                "                                   </tr>" +
+                                "                                   <tr>" +
+                                "                                       <td class='borde negra centro' style='width:12%'>DESEMPEÑO</td>" +
+                                "                                       <td class='borde negra centro' style='width:4%'>FALLAS</td>" +
+                                "                                   </tr>" +
+                                "                               </tbody>" +
+                                "                           </table>" +
+                                "                       </td>" +
+                                "                   </tr>" +
+                                "                   <tr>" +
+                                "                       <td></td>" +
+                                "                   </tr>" +
+                                "               </tbody>" +
+                                "           <tbody class='iniNotaUno'>" +
+                                "               <tr class=''>" +
+                                "                   <td style='width:45%' class='mtr sep'>" + asignaturas + "</td>" +
+                                "                   <td style='width:5%' class='sep'></td>" +
+                                "                   <td style='width:34%' class='sep' align='right'>" +
+                                "                       <table class='tbhs' style='width:100%;-webkit-print-color-adjust:exact;'>" +
+                                "                           <tbody>" +
+                                "                               <tr>" +
+                                "                                   <td class='hsnt hsnt-1 borde'>" + p1 + "</td>" +
+                                "                                   <td class='hsfl hsfl-1 borde'>" + i1 + "</td>" +
+                                "                                   <td class='hsnt hsnt-2 borde'>" + p2 + "</td>" +
+                                "                                   <td class='hsfl hsfl-2 borde'>" + i2 + "</td>" +
+                                "                                   <td class='hsnt hsnt-3 borde'>" + p3 + "</td>" +
+                                "                                   <td class='hsfl hsfl-3 borde'>" + i3 + "</td>" +
+                                "                                   <td class='hsnt hsnt-4 borde'>" + p4 + "</td>" +
+                                "                                   <td class='hsfl hsfl-4 borde'>" + i4 + "</td>" +
+                                "                                   <td class='hscm hsprom borde'>" + promAsignatura + "</td>" +
+                                "                               </tr>" +
+                                "                           </tbody>" +
+                                "                       </table>" +
+                                "                   </td>" +
+                                "                   <td style='width:8%' class='txf  negra centro sep borde'></td>" +
+                                "                   <td style='width:4%' class='ntf  sep negra centro borde'>" + fallas + "</td>" +
+                                "               </tr>" +
+                                "               <tr>" +
+                                "                   <td class='loslogros' colspan='6'></td>" +
+                                "               </tr>" +
+                                "               <tr>" +
+                                "                   <td colspan='3'>" +
+                                "                       <table class='tblg'>" +
+                                "                           <tbody>" +
+                                "                               <tr>" +
+                                "                               </tr>" +
+                                "                           </tbody>" +
+                                "                       </table>" +
+                                "                   </td>" +
+                                "                   <td colspan='3'>" +
+                                "                       <center>" +
+                                "                           <table class='graph-tb' style='font-size:10px;border-collapse:collapse;'>" +
+                                "                               <tbody>" +
+                                "                                   <tr>" +
+                                "                                       <td class='graphGR' style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;' valign='bottom'>" +
+                                "                                           <span style='height:" + p1 * 10 + "px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>" +
+                                "                                       </td>" +
+                                "                                       <td class='graphGR' style = 'background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;' valign = 'bottom' >" +
+                                "                                           <span style = 'height:" + p2 * 10 + "px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>" +
+                                "                                       </td>" +
+                                "                                       <td class='graphGR' style = 'background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;' valign='bottom'>" +
+                                "                                           <span style='height:" + p3 * 10 + "px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>" +
+                                "                                       </td>" +
+                                "                                       <td class='graphGR' style = 'background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;' valign='bottom'>" +
+                                "                                           <span style='height:" + p4 * 10 + "px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>" +
+                                "                                       </td>" +
+                                "                                       <td class='graphGR' style = 'background-color:white;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;' valign='bottom'>" +
+                                "                                           <span style = 'height:" + promAsignatura * 10 + "px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>" +
+                                "                                       </td>" +
+                                "                                   </tr>" +
+                                "                                   <tr>" +
+                                "                                       <td class='graphNT " + cp1 + "  ' style = 'border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>" + p1 + "</td>" +
+                                "                                       <td class='graphNT " + cp2 + " ' style = 'border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>" + p2 + "</td>" +
+                                "                                       <td class='graphNT " + cp3 + " ' style = 'border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>" + p3 + "</td>" +
+                                "                                       <td class='graphNT " + cp4 + " ' style = 'border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>" + p4 + "</td>" +
+                                "                                       <td class='graphNT " + cpr + " ' style = 'border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>" + promAsignatura / 10 + "</td>" +
+                                "                                   </tr>" +
+                                "                               </tbody>" +
+                                "                           </table>" +
+                                "                       </center>" +
+                                "                   </td>" +
+                                "               </tr>" +
+                                "               <tr>" +
+                                "               <td colspan='6'></td>" +
+                                "           </tr>" +
+                                "           <tr>" +
+                                "               <td colspan='2'></td>" +
+                                "               <td colspan='4' class='profe'>" +
+                                "               <span style='float:left;font-size:10px;'>" +
+                                "                   <span class='hrsdic'></span>" +
+                                "               </span> DOCENTE: " + param.docente + "  " +
+                                "           </td>" +
+                                "       </tr>" +
+                                "   </tbody>";
+
+                        });
+                        reporte +=
+                            " </table>" +
+                            "<table border=0 align=center" +
+                            " style='width:100%;font-family:verdana,arial,sans-serif;font-size:10.5px;font-weight:bold'>" +
+                            "" +
+                            " <tr>" +
+                            " <td colspan=3 style='border:1px solid black'>" +
+                            " <b>Observaciones</b>&nbsp;" +
+                            " <br><br><br><br>" +
+                            " </td>" +
+                            " <tr>" +
+                            "" +
+                            " <tr>" +
+                            " <td colspan=2>&nbsp;<br><br><br></td>" +
+                            " <td align='center'></td>" +
+                            "</tr>" +
+                            " <tr>" +
+                            " <td colspan=2>&nbsp;<br><br><br></td>" +
+                            " <td align='center'><img src='{{ asset('rector.png') }}'></td>" +
+                            "</tr>" +
+                            " <tr>" +
+                            " <td colspan=2>&nbsp;<br><br><br></td>" +
+                            " <td align='center'></td>" +
+                            "</tr>" +
+                            " <tr>" +
+                            " <td style='border-top:1px solid black;width:42%' align='center'>DIRECTOR DE GRADO</td>" +
+                            " <td>&nbsp;</td>" +
+                            " <td style='border-top:1px solid black;width:42%' align='center'><br>RECTOR</td>" +
+                            " </tr>" +
+                            " </table>" +
+                            "<br>" +
+                            "<hr>" +
+                            "<a href='#' onclick='window.print()' class='btn btn-info np'>Imprimir</a>" +
+                            "<hr>" +
+                            "<br>"
+                        ;
+
+                        $("#informe").html(reporte);
+
+                        if (console && console.log) {
+                            console.log("La solicitud se ha completado correctamente.");
+                        }
+                    } else {
+                        alert('No hay informacion para los datos ingresados');
+                    }
+                })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        if (console && console.log) {
+                            console.log("La solicitud a fallado: " + textStatus);
+                        }
+                    });
+            } else {
+                alert('Datos incompletos')
+            }
+
+        })
+
+        $('.datepicker').pickadate({
+            format: 'yyyy-mm-d',
+            formatSubmit: 'yyyy-mm-d'
+        })
+	</script>
+	<div id="informe">
+	</div>
+</div>
+
+</body>
+
+</html>

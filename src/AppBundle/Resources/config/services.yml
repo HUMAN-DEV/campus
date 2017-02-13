@@ -1,0 +1,198 @@
+services:
+    app.admin.ocupacion:
+        class: AppBundle\Admin\OcupacionAdmin
+        arguments: [~, AppBundle\Entity\Ocupacion, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Ocupacion }
+
+    admin.area:
+        class: AppBundle\Admin\AreaAdmin
+        arguments: [~, AppBundle\Entity\Area, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Areas Academicas }
+
+    admin.asignatura:
+        class: AppBundle\Admin\AsignaturaAdmin
+        arguments: [~, AppBundle\Entity\Asignatura, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Asignatura }
+
+    admin.town:
+        class: AppBundle\Admin\TownAdmin
+        arguments: [~, AppBundle\Entity\Town, AppBundle:TownAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Ciudades }
+
+    admin.barrio:
+        class: AppBundle\Admin\BarrioAdmin
+        arguments: [~, AppBundle\Entity\Barrio, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm,group: admin, label: Barrios }
+
+    admin.estado:
+        class: AppBundle\Admin\EstadoAdmin
+        arguments: [~, AppBundle\Entity\Estado, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Estado Matricula }
+
+    admin.estado.civil:
+        class: AppBundle\Admin\EstadoCivilAdmin
+        arguments: [~, AppBundle\Entity\EstadoCivil, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Estado Civil }
+
+    admin.discapacidad:
+        class: AppBundle\Admin\DiscapacidadAdmin
+        arguments: [~, AppBundle\Entity\Discapacidad, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Discapacidad }
+
+    admin.genero:
+        class: AppBundle\Admin\GeneroAdmin
+        arguments: [~, AppBundle\Entity\Genero, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Genero }
+
+
+    admin.zona:
+        class: AppBundle\Admin\ZonaAdmin
+        arguments: [~, AppBundle\Entity\Zona, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Zona }
+
+    admin.vereda:
+        class: AppBundle\Admin\VeredaAdmin
+        arguments: [~, AppBundle\Entity\Vereda, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Veredas }
+
+    admin.tipo.documento:
+        class: AppBundle\Admin\TipoDocumentoAdmin
+        arguments: [~, AppBundle\Entity\TipoDocumento, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Tipo de Documento }
+
+    admin.sede:
+        class: AppBundle\Admin\SedeAdmin
+        arguments: [~, AppBundle\Entity\Sede, AppBundle:SedeAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Sedes }
+
+    admin.periodo:
+        class: AppBundle\Admin\PeriodoAdmin
+        arguments: [~, AppBundle\Entity\Periodo, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Períodos }
+
+    admin.parentesco:
+        class: AppBundle\Admin\ParentescoAdmin
+        arguments: [~, AppBundle\Entity\Parentezco, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Parentescos }
+    admin.logro:
+        class: AppBundle\Admin\LogroAdmin
+        arguments: [~, AppBundle\Entity\Logro, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Logros }
+
+    app.admin.estudiante:
+        class: AppBundle\Admin\EstudianteAdmin
+        arguments: [~, AppBundle\Entity\Estudiante, AppBundle:EstudianteAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Estudiante }
+
+    app.admin.acudiente:
+        class: AppBundle\Admin\AcudienteAdmin
+        arguments: [~, AppBundle\Entity\Acudiente, AppBundle:AcudienteAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Acudiente }
+
+    app.admin.matricula:
+        class: AppBundle\Admin\MatriculaAdmin
+        arguments: [~, AppBundle\Entity\Matricula, AppBundle:MatriculaAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Matricula }
+
+    app.admin.inf_referencial_estudiante:
+        class: AppBundle\Admin\InfReferencialEstudianteAdmin
+        arguments: [~, AppBundle\Entity\InfReferencialEstudiante, AppBundle:InfReferencialEstudianteAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Información Referencial }
+
+    app.admin.calificativos:
+        class: AppBundle\Admin\CalificativosAdmin
+        arguments: [~, AppBundle\Entity\Calificativos, AppBundle:CalificativosAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Sistema Evaluación (Rangos) }
+
+    app.admin.docente:
+        class: AppBundle\Admin\DocenteAdmin
+        arguments: [~, AppBundle\Entity\Docente, AppBundle:DocenteAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Talento Humano }
+
+    app.admin.horario:
+        class: AppBundle\Admin\HorarioAdmin
+        arguments: [~, AppBundle\Entity\Horario, AppBundle:HorarioAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Horario }
+
+    app.admin.inasistencia:
+        class: AppBundle\Admin\InasistenciaAdmin
+        arguments: [~, AppBundle\Entity\Inasistencia, AppBundle:InasistenciaAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Inasistencia }
+
+    app.admin.notas:
+        class: AppBundle\Admin\NotasAdmin
+        arguments: [~, AppBundle\Entity\Notas, AppBundle:NotasAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Notas }
+
+    app.admin.aula:
+        class: AppBundle\Admin\AulaAdmin
+        arguments: [~, AppBundle\Entity\Aula, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Aula }
+
+    app.admin.tipo.institucion:
+            class: AppBundle\Admin\TipoInstitucionAdmin
+            arguments: [~, AppBundle\Entity\TipoInstitucion, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, group: admin, label: Tipo de Institucion }
+
+    app.admin.reports:
+            class: AppBundle\Admin\ReportesAdmin
+            tags:
+                - { name: sonata.admin, manager_type: orm, group: admin, label: "Reports" }
+            arguments: [~, AppBundle\Entity\Report, AppBundle:ReportsAdmin]
+
+    app.admin.grupo:
+        class: AppBundle\Admin\GrupoAdmin
+        arguments: [~, AppBundle\Entity\Grupo, AppBundle:GrupoAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Grupo }
+
+    app.admin.grado:
+        class: AppBundle\Admin\GradoAdmin
+        arguments: [~, AppBundle\Entity\Grado, AppBundle:GradoAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Grado }
+
+    app.admin.resguardo:
+        class: AppBundle\Admin\ResguardoAdmin
+        arguments: [~, AppBundle\Entity\Resguardo, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Resguardo }
+
+    app.admin.etnia:
+        class: AppBundle\Admin\EtniaAdmin
+        arguments: [~, AppBundle\Entity\Etnia, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Etnia }
+
+    app.admin.eps:
+        class: AppBundle\Admin\EpsAdmin
+        arguments: [~, AppBundle\Entity\Eps, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Eps }

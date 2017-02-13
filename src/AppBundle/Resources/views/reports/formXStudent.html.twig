@@ -1,0 +1,1968 @@
+{% extends 'base_report.html.twig' %}
+
+
+
+{% block content %}
+
+	<script type="text/javascript">
+        //        function getDataStudent() {
+        //            var code = document.getElementById('id_estudiante').value;
+        //            var student = document.getElementById('doc_estudiante').value;
+        //            console.log(code, student);
+        //            alert(' ' + code + ' - ' + student);
+        //        }
+
+	</script>
+	<div style="text-align: center">
+		<div class=" col-md-6 box box-info">
+			<div class="box-header with-border">
+				<h3 class="box-title">Informes</h3>
+
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+					</button>
+					<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+					</button>
+				</div>
+			</div>
+			<div class="box-body">
+				<fieldset>
+					<legend>Datos del estudiante</legend>
+					<div class="form-inline">
+						<div class="form-group">
+							<label for="id_estudiante">Codigo del Estudiante: </label>
+							<input type="number" class="form-control" id="id_estudiante" placeholder="1234">
+						</div>
+						<a href="#" id="consultar_x_estudiante" class="btn btn-primary">Consultar</a>
+					</div>
+				</fieldset>
+				<div id="resultado"></div>
+
+
+				<style>
+					.tbnota {
+						width: 100%;
+						font-family: verdana, arial, sans-serif;
+						font-size: 8.5px;
+						border: 1px solid black;
+						border-collapse: collapse;
+					}
+
+					.tblg {
+						font-size: 8.5px;
+					}
+
+					.lglt {
+						width: 12px;
+						font-weight: bold
+					}
+
+					.mtr {
+						font-size: 10.5px;
+						font-weight: bold;
+						background-color: #909090;
+						border-bottom: black
+					}
+
+					.negra {
+						font-weight: bold;
+					}
+
+					.centro {
+						text-align: center
+					}
+
+					.tbhs {
+						font-size: 8.5px;
+						border-collapse: collapse;
+					}
+
+					.hsnt {
+						width: 24px;
+						text-align: center;
+						font-weight: bold
+					}
+
+					.hsfl {
+						width: 14px;
+						text-align: center;
+					}
+
+					.hscm {
+						width: 42px;
+						text-align: center;
+						font-weight: bold
+					}
+
+					.tbcr {
+						font-size: 8.5px;
+						width: 45%
+					}
+
+					.crnm {
+						width: 32px;
+					}
+
+					.crnt {
+						text-align: left;
+						font-weight: bold
+					}
+
+					.bajo {
+						color: red;
+					}
+
+					.profe {
+						font-size: 6.5px;
+						text-align: right
+					}
+
+					.borde {
+						border: 1px solid black;
+					}
+
+					.sep {
+						border-top: 1px solid black;
+					}
+
+					.tbcr .crnt {
+						border: 1px solid black;
+						text align: center
+					}
+
+					.sepd {
+						border-right: 1px solid black;
+					}
+
+					#sctd1.once {
+						color: red;
+					}
+
+					.iniNotaUno {
+						page-break-inside: avoid;
+					}
+
+					.grupos {
+						display: none;
+						font-size: 11px;
+						font-weight: bold;
+						background: #c0c0c0;
+					}
+
+					.grupo-lengua-castellana-novenoa-x2 {
+						display: block !important
+					}
+
+					.grupo-biologia-20-novenoa-x1 {
+						display: block !important
+					}
+
+
+				</style>
+				<table border=0 align=center
+				       style="width:100%;font-family:verdana,arial,sans-serif;font-size:10.5px;font-weight:bold">
+					<tr>
+						<td rowspan=4 valign=center align=center style="width:1px;padding:4px"><img id='cfgLogoCol'
+						                                                                            height=96
+						                                                                            src='http://www.educolombia.org/images/colegios/colpruebas/logo.png'
+						                                                                            alt='Escudo del Colegio'>
+						</td>
+						<td align=center>
+							<span style='font-size:16px;font-weight:bold'><span
+										id='cfgMICOLEGIO'>COLPRUEBAS</span></span></td>
+						<td rowspan=4><span id='cfgLogoDer'><img height=96 style='height:96px;float:right;'
+						                                         src='http://www.educolombia.org/jup/images/colpruebas/22-alumno.jpg'></span>
+						</td>
+					</tr>
+					<tr>
+						<td align=center><span id='cfgSLOGAN'>Ciencia - Virtud - Disciplina</span><br><span
+									style='font-size:8px'><span id='cfgCDANE'>C&oacute;digo Dane: 8000265844 - Resolucion: 987256 del 23 de Febrero de 2010</span><span
+										id='cfgDIRECCION'><br>Calle 15 Nro 10 - 61</span> <span id='cfgTELEFONO'>Cel: 312 328 97 79 - TelFax: 098 7627306</span></span>
+						</td>
+					</tr>
+					<tr>
+						<td align=center>
+							<span style='font-size:14px;'><span id='cfgTituloRep1'>Informe de Evaluaci&oacute;n - Periodo: 4 - A&ntilde;o: 2017</span></span>
+						</td>
+					</tr>
+					<tr>
+						<td align=center>
+							<span style='font-size:12.5px;font-weight:bold'><span id='cfgTituloRep2'>Nombre: Sof&#237;a Tatiana Figueroa Torres</span></span>
+						</td>
+					</tr>
+				</table>
+				<table width=100% border=0>
+					<tr>
+						<td rowspan=3 id="bolinleft"></td>
+						<td id="bolintop"></td>
+					</tr>
+					<tr>
+						<td>
+							<table class="tbnota">
+								<tr>
+									<td colspan=6>
+
+										<table style='width:100%' id=superCol1 class='quinto quintoa'>
+											<tr>
+												<td style='font-size:8.5px' id='sctd1' class='quinto quintoa'>Juicios de
+													Valoraci&oacute;n: F: Fortaleza, D: Debilidad, R: Recomendaci&oacute;n
+												</td>
+												<td style='font-size:8.5px' id='sctd2' class='quinto quintoa'
+												    align='right'><span id='HPprom'><b>Promedio:</b>3.69 -</span>
+													<span id='HPpuesto'><b>Puesto:</b>1 -  </span>
+													<span id='HPgrado'><b>Grado:</b>QUINTO - </span>
+													<span id='HPsalon'><b>Sal&oacute;n:</b>QUINTO-A</span>
+													<span id='HPsede'><b>Sede:</b>CENTRAL</span>
+													<span id='HPnlista'><b>Cod:</b>9</span></td>
+											</tr>
+										</table>
+
+									</td>
+								</tr>
+
+								<tr>
+									<td style='width:45%' class='lbmtr sepd sep centro negra'>MATERIA</td>
+									<td style='width:5%' class='sepd sep centro negra'>IH</td>
+									<td style='width:34%' align='right' class='sep'>
+
+										<table class='tbhs quintoa' style='width:100%;'>
+											<tr>
+												<td align='center' colspan=9 class='sepd negra centro'>HISTORICO</td>
+											</tr>
+											<tr>
+												<td class='hsnt borde'>N</td>
+												<td class='hsfl borde'>F</td>
+												<td class='hsnt borde'>N</td>
+												<td class='hsfl borde'>F</td>
+												<td class='hsnt borde'>N</td>
+												<td class='hsfl borde'>F</td>
+												<td class='hsnt borde'>N</td>
+												<td class='hsfl borde'>F</td>
+												<td class='hscm hsprom borde negra'>prom</td>
+											</tr>
+										</table>
+
+									</td>
+									<td style='width:16%' colspan=3 class='sep'>
+
+										<table class='tbhs' width=100%>
+											<tr>
+												<td align='center' colspan=2 class='negra centro'>NOTA PERIODO</td>
+											</tr>
+											<tr>
+												<td class='borde negra centro' style='width:12%'>desempe&ntilde;o</td>
+												<td class='borde negra centro' style='width:4%'>fallas</td>
+											</tr>
+										</table>
+
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<tbody class="iniNotaUno">
+
+										<tr>
+											<td colspan=6 class='grupos grupo-lengua-castellana-quintoa-x1'>AREA
+												CIENCIAS NATURALES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-lengua-castellana-quintoa-x2'>
+												HUMANIDADES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-lengua-castellana-quintoa-x3'>LENGUA
+												CASTELLANA
+											</td>
+										</tr>
+
+
+										<tr class=''>
+											<td style='width:45%' class='mtr sep'>Lengua Castellana</td>
+											<td style='width:5%' class='sep'>5</td>
+											<td style='width:34%' align='right' class='sep'>
+												<table class='tbhs'
+												       style='width:100%;-webkit-print-color-adjust:exact;'>
+													<tr>
+														<td class='hsnt hsnt-1 borde'>2.8</td>
+														<td class='hsfl hsfl-1 borde'>4</td>
+														<td class='hsnt hsnt-2 borde'>3.8</td>
+														<td class='hsfl hsfl-2 borde'></td>
+														<td class='hsnt hsnt-3 borde'>3.5</td>
+														<td class='hsfl hsfl-3 borde'></td>
+														<td class='hsnt hsnt-4 borde'>3.1</td>
+														<td class='hsfl hsfl-4 borde'></td>
+														<td class='hscm hsprom borde'>3.4</td>
+													</tr>
+												</table>
+											</td>
+											<td style='width:8%' class='txf basico negra centro sep borde'>BASICO</td>
+											<td style='width:4%' class='ntf basico sep negra centro borde'>3.1</td>
+											<td style='width:4%' class='flf sep centro borde'></td>
+										</tr>
+
+										<tr>
+											<td class="loslogros" colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=3>
+												<table class='tblg'>
+													<tr>
+														<td class='lglt'>F</td>
+														<td class='lglg'>Desarrolla procesos con operaciones b&#225;sicas</td>
+													</tr>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>Ocasionalmente se distrae y molesta en clases
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>No cumple con todas las tareas y algunas las
+															desarrolla incorrectamente
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>Algunas veces incumple con frecuencia los
+															horarios establecidos
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td colspan=3>
+												<center>
+													<table class='graph-tb'
+													       style='font-size:10px;border-collapse:collapse;'>
+														<tr>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:22.4px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:30.4px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:28px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:24.8px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:white;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:27.2;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+														</tr>
+														<tr>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																2.8
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.8
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.5
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.1
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<b>3.4</b></td>
+														</tr>
+													</table>
+												</center>
+											</td>
+										</tr>
+
+										<tr>
+											<td colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=2></td>
+											<td colspan=4 class='profe'><span style='float:left;font-size:10px;'><b>Horas Dictadas:</b><span
+															class='hrsdic'>16</span></span> Liliana Ruiz
+											</td>
+										</tr>
+
+										</tbody>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<tbody class="iniNotaUno">
+
+										<tr>
+											<td colspan=6 class='grupos grupo-idioma-extranjero-ingles-quintoa-x1'>AREA
+												CIENCIAS NATURALES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-idioma-extranjero-ingles-quintoa-x2'>
+												HUMANIDADES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-idioma-extranjero-ingles-quintoa-x3'>
+												LENGUA CASTELLANA
+											</td>
+										</tr>
+
+
+										<tr class=''>
+											<td style='width:45%' class='mtr sep'>Idioma Extranjero Ingl&#233;s</td>
+											<td style='width:5%' class='sep'>3</td>
+											<td style='width:34%' align='right' class='sep'>
+												<table class='tbhs'
+												       style='width:100%;-webkit-print-color-adjust:exact;'>
+													<tr>
+														<td class='hsnt hsnt-1 borde'>3.8</td>
+														<td class='hsfl hsfl-1 borde'></td>
+														<td class='hsnt hsnt-2 borde'>2.9</td>
+														<td class='hsfl hsfl-2 borde'></td>
+														<td class='hsnt hsnt-3 borde'>3.5</td>
+														<td class='hsfl hsfl-3 borde'>3</td>
+														<td class='hsnt hsnt-4 borde'>3.9</td>
+														<td class='hsfl hsfl-4 borde'></td>
+														<td class='hscm hsprom borde'>3.5</td>
+													</tr>
+												</table>
+											</td>
+											<td style='width:8%' class='txf basico negra centro sep borde'>BASICO</td>
+											<td style='width:4%' class='ntf basico sep negra centro borde'>3.9</td>
+											<td style='width:4%' class='flf sep centro borde'></td>
+										</tr>
+
+										<tr>
+											<td class="loslogros" colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=3>
+												<table class='tblg'>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>Algunas veces incumple con frecuencia los
+															horarios establecidos
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>R</td>
+														<td class='lglg'>Ponga un poco mas de cuidado y atencion a su
+															presentacion personal
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>F</td>
+														<td class='lglg'>Impecable en su presentacion personal por a&#241;os</td>
+													</tr>
+												</table>
+											</td>
+											<td colspan=3>
+												<center>
+													<table class='graph-tb'
+													       style='font-size:10px;border-collapse:collapse;'>
+														<tr>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:30.4px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:23.2px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:28px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:31.2px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:white;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:28;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+														</tr>
+														<tr>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.8
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																2.9
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.5
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.9
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<b>3.5</b></td>
+														</tr>
+													</table>
+												</center>
+											</td>
+										</tr>
+
+										<tr>
+											<td colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=2></td>
+											<td colspan=4 class='profe'><span style='float:left;font-size:10px;'><b>Horas Dictadas:</b><span
+															class='hrsdic'></span></span> Liliana Ruiz
+											</td>
+										</tr>
+
+										</tbody>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<tbody class="iniNotaUno">
+
+										<tr>
+											<td colspan=6 class='grupos grupo-matematicas-quintoa-x1'>AREA CIENCIAS
+												NATURALES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-matematicas-quintoa-x2'>HUMANIDADES</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-matematicas-quintoa-x3'>LENGUA
+												CASTELLANA
+											</td>
+										</tr>
+
+
+										<tr class=''>
+											<td style='width:45%' class='mtr sep'>Matem&#225;ticas</td>
+											<td style='width:5%' class='sep'>5</td>
+											<td style='width:34%' align='right' class='sep'>
+												<table class='tbhs'
+												       style='width:100%;-webkit-print-color-adjust:exact;'>
+													<tr>
+														<td class='hsnt hsnt-1 borde'>3.0</td>
+														<td class='hsfl hsfl-1 borde'>2</td>
+														<td class='hsnt hsnt-2 borde'>3.8</td>
+														<td class='hsfl hsfl-2 borde'></td>
+														<td class='hsnt hsnt-3 borde'>4.4</td>
+														<td class='hsfl hsfl-3 borde'></td>
+														<td class='hsnt hsnt-4 borde'>3.3</td>
+														<td class='hsfl hsfl-4 borde'></td>
+														<td class='hscm hsprom borde'>3.7</td>
+													</tr>
+												</table>
+											</td>
+											<td style='width:8%' class='txf basico negra centro sep borde'>BASICO</td>
+											<td style='width:4%' class='ntf basico sep negra centro borde'>3.3</td>
+											<td style='width:4%' class='flf sep centro borde'></td>
+										</tr>
+
+										<tr>
+											<td class="loslogros" colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=3>
+												<table class='tblg'>
+													<tr>
+														<td class='lglt'>R</td>
+														<td class='lglg'>Con poco de esfuerzo puede cumplir con su
+															compromiso escolar
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>R</td>
+														<td class='lglg'>Debe esforzarse por cumplir con todas las
+															tareas y desarrollarlas correctamente.
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td colspan=3>
+												<center>
+													<table class='graph-tb'
+													       style='font-size:10px;border-collapse:collapse;'>
+														<tr>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:24px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:30.4px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:35.2px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:26.4px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:white;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:29.6;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+														</tr>
+														<tr>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.0
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.8
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																4.4
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.3
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<b>3.7</b></td>
+														</tr>
+													</table>
+												</center>
+											</td>
+										</tr>
+
+										<tr>
+											<td colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=2></td>
+											<td colspan=4 class='profe'><span style='float:left;font-size:10px;'><b>Horas Dictadas:</b><span
+															class='hrsdic'></span></span> Jorge C&#225;rdenas Leal
+											</td>
+										</tr>
+
+										</tbody>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<tbody class="iniNotaUno">
+
+										<tr>
+											<td colspan=6 class='grupos grupo-eduacacion-artistica-quintoa-x1'>AREA
+												CIENCIAS NATURALES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-eduacacion-artistica-quintoa-x2'>
+												HUMANIDADES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-eduacacion-artistica-quintoa-x3'>LENGUA
+												CASTELLANA
+											</td>
+										</tr>
+
+
+										<tr class=''>
+											<td style='width:45%' class='mtr sep'>Eduacaci&#243;n Artistica</td>
+											<td style='width:5%' class='sep'>1</td>
+											<td style='width:34%' align='right' class='sep'>
+												<table class='tbhs'
+												       style='width:100%;-webkit-print-color-adjust:exact;'>
+													<tr>
+														<td class='hsnt hsnt-1 borde'>2.6</td>
+														<td class='hsfl hsfl-1 borde'>5</td>
+														<td class='hsnt hsnt-2 borde'>3.0</td>
+														<td class='hsfl hsfl-2 borde'></td>
+														<td class='hsnt hsnt-3 borde'>3.5</td>
+														<td class='hsfl hsfl-3 borde'>1</td>
+														<td class='hsnt hsnt-4 borde'>3.1</td>
+														<td class='hsfl hsfl-4 borde'>2</td>
+														<td class='hscm hsprom borde'>3.1</td>
+													</tr>
+												</table>
+											</td>
+											<td style='width:8%' class='txf basico negra centro sep borde'>BASICO</td>
+											<td style='width:4%' class='ntf basico sep negra centro borde'>3.1</td>
+											<td style='width:4%' class='flf sep centro borde'>2</td>
+										</tr>
+
+										<tr>
+											<td class="loslogros" colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=3>
+												<table class='tblg'>
+													<tr>
+														<td class='lglt'>F</td>
+														<td class='lglg'>Desarrolla procesos con operaciones b&#225;sicas</td>
+													</tr>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>Ocasionalmente se distrae y molesta en clases
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>No cumple con todas las tareas y algunas las
+															desarrolla incorrectamente
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>Algunas veces incumple con frecuencia los
+															horarios establecidos
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td colspan=3>
+												<center>
+													<table class='graph-tb'
+													       style='font-size:10px;border-collapse:collapse;'>
+														<tr>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:20.8px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:24px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:28px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:24.8px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:white;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:24.8;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+														</tr>
+														<tr>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																2.6
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.0
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.5
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.1
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<b>3.1</b></td>
+														</tr>
+													</table>
+												</center>
+											</td>
+										</tr>
+
+										<tr>
+											<td colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=2></td>
+											<td colspan=4 class='profe'><span style='float:left;font-size:10px;'><b>Horas Dictadas:</b><span
+															class='hrsdic'></span></span> Liliana Ruiz
+											</td>
+										</tr>
+
+										</tbody>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<tbody class="iniNotaUno">
+
+										<tr>
+											<td colspan=6 class='grupos grupo-danzas-50-quintoa-x1'>AREA CIENCIAS
+												NATURALES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-danzas-50-quintoa-x2'>HUMANIDADES</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-danzas-50-quintoa-x3'>LENGUA CASTELLANA
+											</td>
+										</tr>
+
+
+										<tr class=''>
+											<td style='width:45%' class='mtr sep'>Danzas (50%)</td>
+											<td style='width:5%' class='sep'>1</td>
+											<td style='width:34%' align='right' class='sep'>
+												<table class='tbhs'
+												       style='width:100%;-webkit-print-color-adjust:exact;'>
+													<tr>
+														<td class='hsnt hsnt-1 borde'>3.2</td>
+														<td class='hsfl hsfl-1 borde'>1</td>
+														<td class='hsnt hsnt-2 borde'>3.1</td>
+														<td class='hsfl hsfl-2 borde'></td>
+														<td class='hsnt hsnt-3 borde'>3.5</td>
+														<td class='hsfl hsfl-3 borde'></td>
+														<td class='hsnt hsnt-4 borde'>2.3</td>
+														<td class='hsfl hsfl-4 borde'></td>
+														<td class='hscm hsprom borde'>3.1</td>
+													</tr>
+												</table>
+											</td>
+											<td style='width:8%' class='txf bajo negra centro sep borde'>BAJO</td>
+											<td style='width:4%' class='ntf bajo sep negra centro borde'>2.3</td>
+											<td style='width:4%' class='flf sep centro borde'></td>
+										</tr>
+
+										<tr>
+											<td class="loslogros" colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=3>
+												<table class='tblg'>
+													<tr>
+														<td class='lglt'>R</td>
+														<td class='lglg'>Ponga un poco mas de cuidado y atencion a su
+															presentacion personal
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td colspan=3>
+												<center>
+													<table class='graph-tb'
+													       style='font-size:10px;border-collapse:collapse;'>
+														<tr>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:25.6px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:24.8px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:28px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:18.4px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:white;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:24.8;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+														</tr>
+														<tr>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.2
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.1
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.5
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																2.3
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<b>3.1</b></td>
+														</tr>
+													</table>
+												</center>
+											</td>
+										</tr>
+
+										<tr>
+											<td colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=2></td>
+											<td colspan=4 class='profe'><span style='float:left;font-size:10px;'><b>Horas Dictadas:</b><span
+															class='hrsdic'></span></span> Adriana Lilia Castro Gonz&#225;les
+											</td>
+										</tr>
+
+										</tbody>
+									</td>
+								</tr>
+								<tr class='TRinfoArea gr-quinto sl-quintoa'>
+									<td colspan=3 class='lblNTarea gr-quinto sl-quintoa'
+									    style='background-color:#e0e0e0;border-top:1px dotted:#c0c0c0;font-weight:bold;font-size: 11px;'>
+										Nota Area: EDUCACI&#211;N ART&#205;STICA
+									</td>
+									<td class='flf bajo txf areaDS negra centro sep borde' style='font-size: 11px;'>
+										BAJO
+									</td>
+									<td class='flf areaNT bajo gr-quinto sl-quintoa ntf sep negra centro borde'
+									    style='font-size: 11px;'>2.7
+									</td>
+									<td class='flf areaFL sep centro borde' style='font-size: 11px;'>2</td>
+								</tr>
+								<tr>
+									<td>
+										<tbody class="iniNotaUno">
+
+										<tr>
+											<td colspan=6 class='grupos grupo-educacion-etica-y-valores-quintoa-x1'>AREA
+												CIENCIAS NATURALES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-educacion-etica-y-valores-quintoa-x2'>
+												HUMANIDADES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-educacion-etica-y-valores-quintoa-x3'>
+												LENGUA CASTELLANA
+											</td>
+										</tr>
+
+
+										<tr class=''>
+											<td style='width:45%' class='mtr sep'>Educaci&#243;n Etica y Valores</td>
+											<td style='width:5%' class='sep'>1</td>
+											<td style='width:34%' align='right' class='sep'>
+												<table class='tbhs'
+												       style='width:100%;-webkit-print-color-adjust:exact;'>
+													<tr>
+														<td class='hsnt hsnt-1 borde'>3.8</td>
+														<td class='hsfl hsfl-1 borde'></td>
+														<td class='hsnt hsnt-2 borde'>3.8</td>
+														<td class='hsfl hsfl-2 borde'></td>
+														<td class='hsnt hsnt-3 borde'>4.3</td>
+														<td class='hsfl hsfl-3 borde'>1</td>
+														<td class='hsnt hsnt-4 borde'>4.4</td>
+														<td class='hsfl hsfl-4 borde'></td>
+														<td class='hscm hsprom borde'>4.1</td>
+													</tr>
+												</table>
+											</td>
+											<td style='width:8%' class='txf alto negra centro sep borde'>ALTO</td>
+											<td style='width:4%' class='ntf alto sep negra centro borde'>4.4</td>
+											<td style='width:4%' class='flf sep centro borde'></td>
+										</tr>
+
+										<tr>
+											<td class="loslogros" colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=3>
+												<table class='tblg'>
+													<tr>
+														<td class='lglt'>F</td>
+														<td class='lglg'>Desarrolla procesos con operaciones b&#225;sicas</td>
+													</tr>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>Ocasionalmente se distrae y molesta en clases
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>No cumple con todas las tareas y algunas las
+															desarrolla incorrectamente
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>Algunas veces incumple con frecuencia los
+															horarios establecidos
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td colspan=3>
+												<center>
+													<table class='graph-tb'
+													       style='font-size:10px;border-collapse:collapse;'>
+														<tr>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:30.4px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:30.4px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:34.4px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:35.2px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:white;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:32.8;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+														</tr>
+														<tr>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.8
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.8
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																4.3
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																4.4
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<b>4.1</b></td>
+														</tr>
+													</table>
+												</center>
+											</td>
+										</tr>
+
+										<tr>
+											<td colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=2></td>
+											<td colspan=4 class='profe'><span style='float:left;font-size:10px;'><b>Horas Dictadas:</b><span
+															class='hrsdic'></span></span> Liliana Ruiz
+											</td>
+										</tr>
+
+										</tbody>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<tbody class="iniNotaUno">
+
+										<tr>
+											<td colspan=6 class='grupos grupo-ciencias-naturales-quintoa-x1'>AREA
+												CIENCIAS NATURALES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-ciencias-naturales-quintoa-x2'>
+												HUMANIDADES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-ciencias-naturales-quintoa-x3'>LENGUA
+												CASTELLANA
+											</td>
+										</tr>
+
+
+										<tr class=''>
+											<td style='width:45%' class='mtr sep'>Ciencias Naturales</td>
+											<td style='width:5%' class='sep'>4</td>
+											<td style='width:34%' align='right' class='sep'>
+												<table class='tbhs'
+												       style='width:100%;-webkit-print-color-adjust:exact;'>
+													<tr>
+														<td class='hsnt hsnt-1 borde'>3.0</td>
+														<td class='hsfl hsfl-1 borde'>6</td>
+														<td class='hsnt hsnt-2 borde'>4.3</td>
+														<td class='hsfl hsfl-2 borde'>4</td>
+														<td class='hsnt hsnt-3 borde'>4.4</td>
+														<td class='hsfl hsfl-3 borde'>3</td>
+														<td class='hsnt hsnt-4 borde'>2.8</td>
+														<td class='hsfl hsfl-4 borde'>3</td>
+														<td class='hscm hsprom borde'>3.8</td>
+													</tr>
+												</table>
+											</td>
+											<td style='width:8%' class='txf bajo negra centro sep borde'>BAJO</td>
+											<td style='width:4%' class='ntf bajo sep negra centro borde'>2.8</td>
+											<td style='width:4%' class='flf sep centro borde'>3</td>
+										</tr>
+
+										<tr>
+											<td class="loslogros" colspan=6>
+												<table class='losTemas' style='font-size:8.5px;'>
+													<tr>
+														<td class='unTemaTX'>CLASIFICACION DE LOS SERES VIVOS</td>
+														<td align='center' class='unTemaNT'>0</td>
+													</tr>
+													<tr>
+														<td class='unTemaTX'>Cambios f&#237;sicos y qu&#237;micos que
+															pude experimentar la materia.
+														</td>
+														<td align='center' class='unTemaNT'>0</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+
+										<tr>
+											<td colspan=3>
+												<table class='tblg'>
+													<tr>
+														<td class='lglt'>F</td>
+														<td class='lglg'>Aun puede mejorar mas en su presentacion
+															personal
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td colspan=3>
+												<center>
+													<table class='graph-tb'
+													       style='font-size:10px;border-collapse:collapse;'>
+														<tr>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:24px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:34.4px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:35.2px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:22.4px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:white;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:30.4;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+														</tr>
+														<tr>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.0
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																4.3
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																4.4
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																2.8
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<b>3.8</b></td>
+														</tr>
+													</table>
+												</center>
+											</td>
+										</tr>
+
+										<tr>
+											<td colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=2></td>
+											<td colspan=4 class='profe'><span style='float:left;font-size:10px;'><b>Horas Dictadas:</b><span
+															class='hrsdic'>15</span></span> Adriana Lilia Castro Gonz&#225;les
+											</td>
+										</tr>
+
+										</tbody>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<tbody class="iniNotaUno">
+
+										<tr>
+											<td colspan=6 class='grupos grupo-ciencias-sociales-quintoa-x1'>AREA
+												CIENCIAS NATURALES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-ciencias-sociales-quintoa-x2'>
+												HUMANIDADES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-ciencias-sociales-quintoa-x3'>LENGUA
+												CASTELLANA
+											</td>
+										</tr>
+
+
+										<tr class=''>
+											<td style='width:45%' class='mtr sep'>Ciencias Sociales</td>
+											<td style='width:5%' class='sep'>4</td>
+											<td style='width:34%' align='right' class='sep'>
+												<table class='tbhs'
+												       style='width:100%;-webkit-print-color-adjust:exact;'>
+													<tr>
+														<td class='hsnt hsnt-1 borde'>5.0</td>
+														<td class='hsfl hsfl-1 borde'>7</td>
+														<td class='hsnt hsnt-2 borde'>3.2</td>
+														<td class='hsfl hsfl-2 borde'>1</td>
+														<td class='hsnt hsnt-3 borde'>2.8</td>
+														<td class='hsfl hsfl-3 borde'></td>
+														<td class='hsnt hsnt-4 borde'>1.0</td>
+														<td class='hsfl hsfl-4 borde'></td>
+														<td class='hscm hsprom borde'>3.0</td>
+													</tr>
+												</table>
+											</td>
+											<td style='width:8%' class='txf bajo negra centro sep borde'>BAJO</td>
+											<td style='width:4%' class='ntf bajo sep negra centro borde'>1.0</td>
+											<td style='width:4%' class='flf sep centro borde'></td>
+										</tr>
+
+										<tr>
+											<td class="loslogros" colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=3>
+												<table class='tblg'>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>Algunas veces incumple con frecuencia los
+															horarios establecidos
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>F</td>
+														<td class='lglg'>Aun puede mejorar mas en su presentacion
+															personal
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>No cumple con todas las tareas y algunas las
+															desarrolla incorrectamente
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td colspan=3>
+												<center>
+													<table class='graph-tb'
+													       style='font-size:10px;border-collapse:collapse;'>
+														<tr>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:40px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:25.6px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:22.4px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:8px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:white;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:24;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+														</tr>
+														<tr>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																5.0
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.2
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																2.8
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																1.0
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<b>3.0</b></td>
+														</tr>
+													</table>
+												</center>
+											</td>
+										</tr>
+
+										<tr>
+											<td colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=2></td>
+											<td colspan=4 class='profe'><span style='float:left;font-size:10px;'><b>Horas Dictadas:</b><span
+															class='hrsdic'></span></span> Jos&#233; Mar&#237;a Avenda&#241;o
+												R&#237;os
+											</td>
+										</tr>
+
+										</tbody>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<tbody class="iniNotaUno">
+
+										<tr>
+											<td colspan=6 class='grupos grupo-ed-fisica-y-deportes-50-quintoa-x1'>AREA
+												CIENCIAS NATURALES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-ed-fisica-y-deportes-50-quintoa-x2'>
+												HUMANIDADES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-ed-fisica-y-deportes-50-quintoa-x3'>LENGUA
+												CASTELLANA
+											</td>
+										</tr>
+
+
+										<tr class=''>
+											<td style='width:45%' class='mtr sep'>Ed. F&#237;sica y Deportes (50%)</td>
+											<td style='width:5%' class='sep'>2</td>
+											<td style='width:34%' align='right' class='sep'>
+												<table class='tbhs'
+												       style='width:100%;-webkit-print-color-adjust:exact;'>
+													<tr>
+														<td class='hsnt hsnt-1 borde'>3.7</td>
+														<td class='hsfl hsfl-1 borde'></td>
+														<td class='hsnt hsnt-2 borde'>3.5</td>
+														<td class='hsfl hsfl-2 borde'></td>
+														<td class='hsnt hsnt-3 borde'>3.5</td>
+														<td class='hsfl hsfl-3 borde'></td>
+														<td class='hsnt hsnt-4 borde'>4.3</td>
+														<td class='hsfl hsfl-4 borde'></td>
+														<td class='hscm hsprom borde'>3.7</td>
+													</tr>
+												</table>
+											</td>
+											<td style='width:8%' class='txf alto negra centro sep borde'>ALTO</td>
+											<td style='width:4%' class='ntf alto sep negra centro borde'>4.3</td>
+											<td style='width:4%' class='flf sep centro borde'></td>
+										</tr>
+
+										<tr>
+											<td class="loslogros" colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=3>
+												<table class='tblg'>
+													<tr>
+														<td class='lglt'>F</td>
+														<td class='lglg'>Desarrolla procesos con operaciones b&#225;sicas</td>
+													</tr>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>Ocasionalmente se distrae y molesta en clases
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>No cumple con todas las tareas y algunas las
+															desarrolla incorrectamente
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>Algunas veces incumple con frecuencia los
+															horarios establecidos
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>R</td>
+														<td class='lglg'>Debe mejorar su comportamiento y disciplina en
+															sus actividades escolares
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>F</td>
+														<td class='lglg'>Llega siempre a tiempo a sus actividades
+															escolares todos los dias. de la semana, LOS SABADOS
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td colspan=3>
+												<center>
+													<table class='graph-tb'
+													       style='font-size:10px;border-collapse:collapse;'>
+														<tr>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:29.6px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:28px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:28px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:34.4px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:white;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:29.6;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+														</tr>
+														<tr>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.7
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.5
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.5
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																4.3
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<b>3.7</b></td>
+														</tr>
+													</table>
+												</center>
+											</td>
+										</tr>
+
+										<tr>
+											<td colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=2></td>
+											<td colspan=4 class='profe'><span style='float:left;font-size:10px;'><b>Horas Dictadas:</b><span
+															class='hrsdic'></span></span> Jairo Anibal Rojas G&#243;mez
+											</td>
+										</tr>
+
+										</tbody>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<tbody class="iniNotaUno">
+
+										<tr>
+											<td colspan=6 class='grupos grupo-educacion-religiosa-quintoa-x1'>AREA
+												CIENCIAS NATURALES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-educacion-religiosa-quintoa-x2'>
+												HUMANIDADES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-educacion-religiosa-quintoa-x3'>LENGUA
+												CASTELLANA
+											</td>
+										</tr>
+
+
+										<tr class=''>
+											<td style='width:45%' class='mtr sep'>Educaci&#243;n Religiosa</td>
+											<td style='width:5%' class='sep'>2</td>
+											<td style='width:34%' align='right' class='sep'>
+												<table class='tbhs'
+												       style='width:100%;-webkit-print-color-adjust:exact;'>
+													<tr>
+														<td class='hsnt hsnt-1 borde'>4.7</td>
+														<td class='hsfl hsfl-1 borde'>3</td>
+														<td class='hsnt hsnt-2 borde'>3.5</td>
+														<td class='hsfl hsfl-2 borde'></td>
+														<td class='hsnt hsnt-3 borde'>2.8</td>
+														<td class='hsfl hsfl-3 borde'></td>
+														<td class='hsnt hsnt-4 borde'>3.1</td>
+														<td class='hsfl hsfl-4 borde'></td>
+														<td class='hscm hsprom borde'>3.5</td>
+													</tr>
+												</table>
+											</td>
+											<td style='width:8%' class='txf basico negra centro sep borde'>BASICO</td>
+											<td style='width:4%' class='ntf basico sep negra centro borde'>3.1</td>
+											<td style='width:4%' class='flf sep centro borde'></td>
+										</tr>
+
+										<tr>
+											<td class="loslogros" colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=3>
+												<table class='tblg'>
+													<tr>
+														<td class='lglt'>F</td>
+														<td class='lglg'>Desarrolla procesos con operaciones b&#225;sicas</td>
+													</tr>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>Ocasionalmente se distrae y molesta en clases
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>No cumple con todas las tareas y algunas las
+															desarrolla incorrectamente
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>Algunas veces incumple con frecuencia los
+															horarios establecidos
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td colspan=3>
+												<center>
+													<table class='graph-tb'
+													       style='font-size:10px;border-collapse:collapse;'>
+														<tr>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:37.6px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:28px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:22.4px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:24.8px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:white;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:28;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+														</tr>
+														<tr>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																4.7
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.5
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																2.8
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.1
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<b>3.5</b></td>
+														</tr>
+													</table>
+												</center>
+											</td>
+										</tr>
+
+										<tr>
+											<td colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=2></td>
+											<td colspan=4 class='profe'><span style='float:left;font-size:10px;'><b>Horas Dictadas:</b><span
+															class='hrsdic'></span></span> Adriana Lilia Castro Gonz&#225;les
+											</td>
+										</tr>
+
+										</tbody>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<tbody class="iniNotaUno">
+
+										<tr>
+											<td colspan=6 class='grupos grupo-tecnologias-e-informatica-quintoa-x1'>AREA
+												CIENCIAS NATURALES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-tecnologias-e-informatica-quintoa-x2'>
+												HUMANIDADES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-tecnologias-e-informatica-quintoa-x3'>
+												LENGUA CASTELLANA
+											</td>
+										</tr>
+
+
+										<tr class=''>
+											<td style='width:45%' class='mtr sep'>Tecnolog&#237;as e Inform&#225;tica
+											</td>
+											<td style='width:5%' class='sep'>2</td>
+											<td style='width:34%' align='right' class='sep'>
+												<table class='tbhs'
+												       style='width:100%;-webkit-print-color-adjust:exact;'>
+													<tr>
+														<td class='hsnt hsnt-1 borde'>2.8</td>
+														<td class='hsfl hsfl-1 borde'></td>
+														<td class='hsnt hsnt-2 borde'>3.8</td>
+														<td class='hsfl hsfl-2 borde'>3</td>
+														<td class='hsnt hsnt-3 borde'>4.4</td>
+														<td class='hsfl hsfl-3 borde'></td>
+														<td class='hsnt hsnt-4 borde'>3.9</td>
+														<td class='hsfl hsfl-4 borde'>5</td>
+														<td class='hscm hsprom borde'>3.8</td>
+													</tr>
+												</table>
+											</td>
+											<td style='width:8%' class='txf basico negra centro sep borde'>BASICO</td>
+											<td style='width:4%' class='ntf basico sep negra centro borde'>3.9</td>
+											<td style='width:4%' class='flf sep centro borde'>5</td>
+										</tr>
+
+										<tr>
+											<td class="loslogros" colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=3>
+												<table class='tblg'>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>Algunas veces incumple con frecuencia los
+															horarios establecidos
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>R</td>
+														<td class='lglg'>Ponga un poco mas de cuidado y atencion a su
+															presentacion personal
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>F</td>
+														<td class='lglg'>Impecable en su presentacion personal por a&#241;os</td>
+													</tr>
+												</table>
+											</td>
+											<td colspan=3>
+												<center>
+													<table class='graph-tb'
+													       style='font-size:10px;border-collapse:collapse;'>
+														<tr>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:22.4px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:30.4px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:35.2px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:31.2px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:white;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:30.4;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+														</tr>
+														<tr>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																2.8
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.8
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																4.4
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.9
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<b>3.8</b></td>
+														</tr>
+													</table>
+												</center>
+											</td>
+										</tr>
+
+										<tr>
+											<td colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=2></td>
+											<td colspan=4 class='profe'><span style='float:left;font-size:10px;'><b>Horas Dictadas:</b><span
+															class='hrsdic'></span></span> Jorge C&#225;rdenas Leal
+											</td>
+										</tr>
+
+										</tbody>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<tbody class="iniNotaUno">
+
+										<tr>
+											<td colspan=6 class='grupos grupo-comportamiento-quintoa-x1'>AREA CIENCIAS
+												NATURALES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-comportamiento-quintoa-x2'>HUMANIDADES
+											</td>
+										</tr>
+										<tr>
+											<td colspan=6 class='grupos grupo-comportamiento-quintoa-x3'>LENGUA
+												CASTELLANA
+											</td>
+										</tr>
+
+
+										<tr class=''>
+											<td style='width:45%' class='mtr sep'>Comportamiento</td>
+											<td style='width:5%' class='sep'>0</td>
+											<td style='width:34%' align='right' class='sep'>
+												<table class='tbhs'
+												       style='width:100%;-webkit-print-color-adjust:exact;'>
+													<tr>
+														<td class='hsnt hsnt-1 borde'>4.0</td>
+														<td class='hsfl hsfl-1 borde'></td>
+														<td class='hsnt hsnt-2 borde'>3.8</td>
+														<td class='hsfl hsfl-2 borde'></td>
+														<td class='hsnt hsnt-3 borde'>3.5</td>
+														<td class='hsfl hsfl-3 borde'></td>
+														<td class='hsnt hsnt-4 borde'>2.9</td>
+														<td class='hsfl hsfl-4 borde'></td>
+														<td class='hscm hsprom borde'>3.6</td>
+													</tr>
+												</table>
+											</td>
+											<td style='width:8%' class='txf bajo negra centro sep borde'>BAJO</td>
+											<td style='width:4%' class='ntf bajo sep negra centro borde'>2.9</td>
+											<td style='width:4%' class='flf sep centro borde'></td>
+										</tr>
+
+										<tr>
+											<td class="loslogros" colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=3>
+												<table class='tblg'>
+													<tr>
+														<td class='lglt'>D</td>
+														<td class='lglg'>Algunas veces incumple con frecuencia los
+															horarios establecidos
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>R</td>
+														<td class='lglg'>Ponga un poco mas de cuidado y atencion a su
+															presentacion personal
+														</td>
+													</tr>
+													<tr>
+														<td class='lglt'>F</td>
+														<td class='lglg'>Impecable en su presentacion personal por a&#241;os</td>
+													</tr>
+													<tr>
+														<td class='lglt'>F</td>
+														<td class='lglg'>Desarrolla procesos con operaciones b&#225;sicas</td>
+													</tr>
+												</table>
+											</td>
+											<td colspan=3>
+												<center>
+													<table class='graph-tb'
+													       style='font-size:10px;border-collapse:collapse;'>
+														<tr>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:32px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:30.4px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:28px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:#e0e0e0;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:23.2px;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+															<td class='graphGR' valign='bottom'
+															    style='background-color:white;height:40px;border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<span style='height:28.8;background-color:#606060;display:block;-webkit-print-color-adjust:exact;'>&nbsp;</span>
+															</td>
+														</tr>
+														<tr>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																4.0
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.8
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																3.5
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																2.9
+															</td>
+															<td class='graphNT'
+															    style='border:1px solid #b0b0b0;-webkit-print-color-adjust:exact;'>
+																<b>3.6</b></td>
+														</tr>
+													</table>
+												</center>
+											</td>
+										</tr>
+
+										<tr>
+											<td colspan=6></td>
+										</tr>
+
+										<tr>
+											<td colspan=2></td>
+											<td colspan=4 class='profe'><span style='float:left;font-size:10px;'><b>Horas Dictadas:</b><span
+															class='hrsdic'></span></span> Deyssy Urrego Zapata
+											</td>
+										</tr>
+
+										</tbody>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td id="bolinbottom"></td>
+					</tr>
+				</table>
+				<table border=0 align=center
+				       style="width:100%;font-family:verdana,arial,sans-serif;font-size:10.5px;font-weight:bold">
+
+					<tr>
+						<td colspan=3 style="border:1px solid black">
+							<b>Observaciones</b>&nbsp;
+							<span style='float:right'>SofÃ­a Tatiana Figueroa Torres - QUINTO-A</span>
+							<br><br><br><br></td>
+					<tr>
+
+					<tr>
+						<td colspan=2>&nbsp;<br><br><br></td>
+						<td align="center"><img src="http://www.educolombia.org/images/colegios/colpruebas/rector.png">
+						</td>
+					</tr>
+
+					<tr>
+						<td style="border-top:1px solid black;width:42%" align="center">DIRECTOR DE GRADO</td>
+						<td>&nbsp;</td>
+						<td style="border-top:1px solid black;width:42%" align="center"><br>RECTOR</td>
+					</tr>
+				</table>
+
+
+			</div>
+
+		</div>
+	</div>
+{% endblock %}

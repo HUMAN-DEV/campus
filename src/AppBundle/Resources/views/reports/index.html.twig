@@ -1,0 +1,25 @@
+{% extends 'base_report.html.twig' %}
+
+{% block content %}
+
+	<div class="box box-info">
+		<div class="box-header with-border">
+			<h3 class="box-title">Informes</h3>
+
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+				</button>
+				<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="table-responsive">
+				<a href="{{ admin.generateUrl('report_by_student') }}" class="btn btn-primary">Informe por estudiante</a>
+				<a href="#" class="btn btn-primary">Informe por Grupo</a>
+			</div>
+		</div>
+
+	</div>
+
+
+{% endblock %}
